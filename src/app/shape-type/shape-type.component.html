@@ -1,0 +1,20 @@
+<div  class="col-md-8">
+<!-- combobox of shapes type -->
+<select (change)="typeChanged()" [(ngModel)]="type">
+    <option value="rectangle">Rectangle</option>
+    <option value="line">Line</option>
+    <option value="ellipse">Ellipse</option>
+    <option value="circle">Circle</option>
+    <option value="Half-circle">Half-circle</option>
+
+  </select>
+  </div>
+
+  <div  class="col-md-4" style="right: 50%;">
+    <!-- combobox of dimensions type -->
+    <select (change)="onChange($event)" id="MeterSelect">
+        <option value="cm">Cm</option>
+        <option value="meter">Meter</option>
+        
+      </select>
+      </div>
