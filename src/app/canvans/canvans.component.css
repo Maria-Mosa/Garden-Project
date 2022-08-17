@@ -1,0 +1,13 @@
+.shapeCanvas{
+    height:700px;
+    width:700px;
+    border:solid;
+    border-color:rgb(178, 178, 196);
+ }
+ 
+ .shape{
+   fill-opacity:0;
+   stroke:black;
+   stroke-width:1;
+   
+ }
