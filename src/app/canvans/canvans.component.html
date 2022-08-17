@@ -1,0 +1,78 @@
+
+<div class="containter" style="padding: 50px;">
+<div>Create: 
+    <app-shape-type (onTypeChange)="setType($event)"></app-shape-type>
+    
+</div>
+<!--  empty rectangle to draw in it-->
+<svg id ='shapetoclear' class="shapeCanvas" 
+  (mousedown)="startDrawing($event)" 
+  (mouseup)="stopDrawing($event)"
+  (mousemove)="keepDrawing($event)">
+  
+<ng-container *ngFor="let shape of shapesToDraw">
+  
+  <rect class="shape" *ngIf="shape.type=='rectangle'" 
+   [style.stroke-width]="shape==(currentShape|async)?2:1" 
+   [attr.x]="shape.x" 
+   [attr.y]="shape.y" 
+   [attr.width]="shape.w"       
+   [attr.height]="shape.h"></rect>
+
+  <line class="shape" *ngIf="shape.type=='line'" 
+   [style.stroke-width]="shape==(currentShape|async)?2:1" 
+   [attr.x1]="shape.x" 
+   [attr.y1]="shape.y" 
+   [attr.x2]="shape.x*1+shape.w*1"       
+   [attr.y2]="shape.y*1+shape.h*1"></line>
+
+  <ellipse class="shape" *ngIf="shape.type=='ellipse'" 
+   [style.stroke-width]="shape==(currentShape|async)?2:1" 
+   [attr.cx]="shape.x*1+shape.w/2" 
+   [attr.cy]="shape.y*1+shape.h/2" 
+   [attr.rx]="shape.w/2"       
+   [attr.ry]="shape.h/2"></ellipse>
+ 
+
+   <circle class="shape" *ngIf="shape.type=='circle'" 
+   [style.stroke-width]="shape==(currentShape|async)?2:1" 
+   [attr.cx]="shape.x*1+shape.w/2" 
+   [attr.cy]="shape.y*1+shape.h/2" 
+   [attr.r]="shape.w/2"></circle>
+   
+   
+   <clipPath id="cut-off-bottom">
+    <rect x="shape.x" y="shape.y" width="200" height="100" />
+</clipPath>
+
+    <circle class="shape" *ngIf="shape.type=='Half-circle'" 
+    [style.stroke-width]="shape==(currentShape|async)?2:1" 
+    [attr.x]="shape.x*1+shape.w/2" 
+    [attr.y]="shape.y*1+shape.h/2" 
+    [attr.r]="shape.w/2"
+    [attr.border-radius]="shape.w/2"
+  ></circle>
+
+    border-radius
+    clip-path="url(#cut-off-bottom)">
+   
+</ng-container>
+
+</svg>
+
+    <div class="d-grid gap-2 d-md-block col-md-12" style="top: 380px;" >
+      <!-- button to delete all the shapes , call method clear -->
+      <button type="button" class="btn btn-warning " style="margin-right: 150px;"  (click)="clear(); " >clear</button>
+      <!-- button to delete the last shape , call method back -->
+      <button type="button" class="btn btn-warning" (click)="back(); " >back</button>
+    </div>
+    <!-- button to get the solution , call method solution -->
+    <div class="btn-holder" style="padding: 2px;" >
+    <button type="button" class="btn btn-warning" style="margin-top: 20px;"  (click)="solution(); ">Get The Solution!</button>
+    </div>
+  </div>
+
+  <div >
+    <!-- textarea to show the cuts  -->
+  <textarea id="your_textarea"  class="text-right" style="width: 250px ; height: 250px ; right: 500px;"></textarea>
+  </div>
